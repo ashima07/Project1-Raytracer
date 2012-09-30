@@ -10,6 +10,9 @@ Submitted Functionality:
  Soft shadows and area lights - not working properly so disabled this functionality for now
  
  
+ Blog: http://gpu-raytrace.blogspot.com/
+ 
+ 
 
 -------------------------------------------------------------------------------
 CIS565: Project 1: CUDA Raytracer
