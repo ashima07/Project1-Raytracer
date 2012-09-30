@@ -1,3 +1,16 @@
+Submitted Functionality:
+ Raycasting from a camera into a scene through a pixel grid
+ Phong lighting for one point light source
+ Diffuse lambertian surfaces
+ Raytraced shadows
+ Cube intersection testing
+ Sphere surface point sampling
+ Specular reflection
+ Refraction, i.e. glass
+ Soft shadows and area lights - not working properly so disabled this functionality for now
+ 
+ 
+
 -------------------------------------------------------------------------------
 CIS565: Project 1: CUDA Raytracer
 -------------------------------------------------------------------------------

@@ -12,6 +12,9 @@
     <ClCompile Include="..\..\src\stb_image\stb_image_write.c">
       <Filter>stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\EasyBMP.cpp">
+      <Filter>stb_image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\cudaMat4.h" />
@@ -28,6 +31,18 @@
       <Filter>stb_image</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\stb_image\stb_image.h">
+      <Filter>stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\EasyBMP.h">
+      <Filter>stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\EasyBMP_BMP.h">
+      <Filter>stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\EasyBMP_DataStructures.h">
+      <Filter>stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\EasyBMP_VariousBMPutilities.h">
       <Filter>stb_image</Filter>
     </ClInclude>
   </ItemGroup>
