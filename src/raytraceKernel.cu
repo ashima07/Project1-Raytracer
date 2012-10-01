@@ -104,7 +104,7 @@ __global__ void sendImageToPBO(uchar4* PBOpos, glm::vec2 resolution, glm::vec3* 
   }
 }
 
-__host__ __device__ float calculateLights(staticGeom* geoms,int numberOfGeoms, staticGeom light,glm::vec3 intersectionPoint, float lightType, int numberOfLights, float &dist){
+__host__ __device__ float calculateLights(staticGeom* geoms,int numberOfGeoms, staticGeom light,glm::vec3 intersectionPoint, float lightType, int numberOfLights, float &dist, int indexLight){
 	  float avg = 0; 
 	  glm::vec3 tempNormal = glm::vec3(0);
 	  float hitPointDistance = -1;
@@ -123,10 +123,10 @@ __host__ __device__ float calculateLights(staticGeom* geoms,int numberOfGeoms, s
 						tempNormal = glm::vec3(0);
 						hitPointDistance = -1;
 						tempIntersectionPoint = glm::vec3(0);
-						for(int i = 0; i < numberOfGeoms -numberOfLights; i++)
+						for(int i = 0; i < numberOfGeoms; i++)
 						{
 																		
-							if(i != 2){
+							if(light.translation != geoms[i].translation && i!= indexLight ){
 									if( geoms[i].type == SPHERE )
 									{
 										hitPointDistance = sphereIntersectionTest(geoms[i], tempLightRay, tempIntersectionPoint, tempNormal);
@@ -164,9 +164,9 @@ __host__ __device__ float calculateLights(staticGeom* geoms,int numberOfGeoms, s
 					hitPointDistance = -1;
 					tempIntersectionPoint = glm::vec3(0);
 					avg = 1;
-					for(int i = 0; i < numberOfGeoms - numberOfLights; i++)
+					for(int i = 0; i < numberOfGeoms; i++)
 					{
-						if(i != 2){
+						if(light.translation != geoms[i].translation && i!= indexLight ){
 								if( geoms[i].type == SPHERE )
 								{
 									hitPointDistance = sphereIntersectionTest(geoms[i], lightRay, tempIntersectionPoint, tempNormal);
@@ -307,7 +307,7 @@ __global__ void raytraceRay(glm::vec2 resolution, float time, cameraData cam, in
 												//parse over lights
 												for( int j = 0; j < numberOfLights; j++ )
 												{
-													float avg = calculateLights( geoms,numberOfGeoms,geoms[cudaLights[j]],intersectionPoint,cudaMat[geoms[cudaLights[j]].materialid].areaLight, numberOfLights,closestIntersectionDistance);
+													float avg = calculateLights( geoms,numberOfGeoms,geoms[cudaLights[j]],intersectionPoint,cudaMat[geoms[cudaLights[j]].materialid].areaLight, numberOfLights,closestIntersectionDistance, cudaLights[j]);
 													 
 													   if(cudaMat[geoms[cudaLights[j]].materialid].areaLight>0){
 														
@@ -350,11 +350,11 @@ __global__ void raytraceRay(glm::vec2 resolution, float time, cameraData cam, in
 										{
 											n2 = currentMat.indexOfRefraction;
 											n = n1 / n2;
-											float cosI = glm::dot( normal, r.direction);
-											float cosT2 = 1.0f - n * n * (1.0f - cosI * cosI);
-											if (cosT2 >= 0.0f)
+											float cosAngle = glm::dot( normal, r.direction);
+											float secondTerm = 1.0f - n * n * (1.0f - cosAngle * cosAngle);
+											if (secondTerm >= 0.0f)
 											{
-												r.direction = (n * r.direction) - (n * cosI + sqrtf( cosT2 )) * normal;
+												r.direction = (n * r.direction) - (n * cosAngle + sqrtf( secondTerm )) * normal;
 												r.direction  = glm::normalize(r.direction );
 												r.origin = intersectionPoint;
 												component *= currentMat.hasRefractive;
