@@ -7,7 +7,9 @@ Submitted Functionality:
  Sphere surface point sampling
  Specular reflection
  Refraction, i.e. glass
- Soft shadows and area lights - not working properly so disabled this functionality for now
+ Texture mapping - used EasyBMP to read the file and then texture mapped the sphere but it is not working properly. Not picking up the colors correctly.
+ Soft shadows and area lights - not working properly so disabled this functionality for now. Could not sample more than 9 iterations. Hence disabled. Have to figure out how can I increase samples.
+ Anti aliasing - Problem similar to area lighting.
  
  
  Blog: http://gpu-raytrace.blogspot.com/
