@@ -339,14 +339,14 @@ __global__ void raytraceRay(glm::vec2 resolution, float time, cameraData cam, in
 												}//end light for loop
 
 										}//not a light condition
-
+										
 										//reflection calculations
 										if(currentMat.hasReflective > 0){
 											component *= currentMat.hasReflective;
 											float reflect = 2.0f * glm::dot(r.direction, normal);
 											r.origin = intersectionPoint;
 											r.direction = r.direction - reflect * normal;
-										}else if ((currentMat.hasRefractive > 0))
+										}else if ((currentMat.hasRefractive > 0))//refraction
 										{
 											n2 = currentMat.indexOfRefraction;
 											n = n1 / n2;
